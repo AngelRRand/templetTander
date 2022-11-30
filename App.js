@@ -1,13 +1,13 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 const App = () => {
   return (
-    <View>
+    <SafeAreaProvider>
 
-      <Text>Holaaaa</Text>
-      
-    </View>
+      <Text>Holaaaaaaaaaaaaaaaaaa</Text>
+
+    </SafeAreaProvider>
   )
 }
 
