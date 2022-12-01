@@ -1,14 +1,20 @@
-import React from 'react'
-import { Text, View } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-const App = () => {
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './src/view/Home';
+
+
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <SafeAreaProvider>
-
-      <Text>Holaaaaaaaaaaaaaaaaaa</Text>
-
-    </SafeAreaProvider>
-  )
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
-export default App
+export default App;
