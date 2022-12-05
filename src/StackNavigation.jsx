@@ -5,13 +5,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 const StackNavigation = () => {
-    
+    const user = null
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="Login" component={Login} />
+            {
+                user !== null ? 
+                    <>
+    
+                        <Stack.Screen name="Home" component={Home} />
+                        <Stack.Screen name="Chat" component={Chat} />
+                    </>
+
+                :
+                    <Stack.Screen name="Login" component={Login} />
+                
+            }
 
         </Stack.Navigator>
     )
