@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "115691576940",
+    "project_id": "tander-8382d",
+    "storage_bucket": "tander-8382d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115691576940:android:656ce47ecf7e0287f0c249",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115691576940-7nd77bb2mdp1h59mt1qhf152da7ud2a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD56IRxeXZSJePpM9axJpvua-vUX3gxmD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115691576940-7nd77bb2mdp1h59mt1qhf152da7ud2a5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

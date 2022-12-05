@@ -1,14 +1,23 @@
-import React, { createContext } from 'react'
-import { View, Text } from 'react-native'
+import React, { createContext, useContext } from 'react'
+
+
+const AppContext = createContext({
+    //Initial State
+})
 
 
 export const Context = ({children}) => {
 
-    const AppContenxt = createContext({})
-
     return (
-    <AppContenxt.Provider value={null}>
+    <AppContext.Provider value={{
+        user: "Hori"
+    }}>
       {children}
-    </AppContenxt.Provider>
+    </AppContext.Provider>
   )
+
+}
+
+export default function useLogin(){
+    return useContext(AppContext)
 }

@@ -2,10 +2,12 @@ import Home from './view/Home.jsx';
 import Chat from './view/Chat.jsx';
 import Login from './view/Login.jsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import useLogin from './context/Context.jsx';
 
 
 const StackNavigation = () => {
-    const user = null
+    const {user} = useLogin()
+
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator>
