@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:115691576940:android:656ce47ecf7e0287f0c249",
+        "mobilesdk_app_id": "1:115691576940:android:46389cf02572dafbf0c249",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.templettander"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "115691576940-69hu3vspk1rfoevobjre2qbsflokfo1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.templettander",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
         {
           "client_id": "115691576940-7nd77bb2mdp1h59mt1qhf152da7ud2a5.apps.googleusercontent.com",
           "client_type": 3
