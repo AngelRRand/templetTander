@@ -6,7 +6,7 @@ const Home = () => {
   const navigation = useNavigation()
   return (
     <View>
-        <Text>HOMEEEEE</Text>
+        <Text>HOME</Text>
         <Button title='To go Chat' onPress={()=> navigation.navigate('Chat')}/>
     </View>
   )

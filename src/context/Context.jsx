@@ -1,13 +1,12 @@
-import React, { useContext } from 'react'
+import React, { createContext } from 'react'
 import { View, Text } from 'react-native'
 
-const AppContenxt = useContext({
-    //InitilState
-
-})
 
 export const Context = ({children}) => {
-  return (
+
+    const AppContenxt = createContext({})
+
+    return (
     <AppContenxt.Provider value={null}>
       {children}
     </AppContenxt.Provider>
