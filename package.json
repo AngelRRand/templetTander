@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@react-native-firebase/app": "^16.4.6",
+    "@react-native-firebase/firestore": "^16.4.6",
     "@react-navigation/native": "^6.0.16",
     "@react-navigation/native-stack": "^6.9.4",
+    "pod-install": "^0.1.38",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-calendars": "^1.1292.0",
