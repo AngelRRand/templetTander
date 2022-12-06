@@ -11,7 +11,6 @@ const Home = () => {
   async function loadData() {
     try {
       const users = await firestore().collection('Usuarios').get()
-      //console.log(users.docs)
       setData(users.docs)
     } catch (error) {
       console.log(error)
