@@ -11,17 +11,17 @@ const Home = () => {
   async function loadData() {
     try {
       const users = await firestore().collection('Usuarios').get()
-      console.log(users.docs)
+      //console.log(users.docs)
       setData(users.docs)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const { userMail, getInfoUser } = useContext(AppContext)
+  const { userMail, asyncUser } = useContext(AppContext)
   useEffect(() => {
     loadData()
-    getInfoUser()
+    asyncUser()
   }, [])
 
 
