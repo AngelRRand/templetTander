@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StackNavigation from './src/StackNavigation.jsx';
-import {Context} from './src/context/Context.jsx';
+import AppbaseState from './src/context/app/AppState.jsx';
 
 
 function App() {
   return (
 
-    <Context>
+    <AppbaseState>
       <NavigationContainer>
         <StackNavigation />
       </NavigationContainer>
-    </Context>
+    </AppbaseState>
 
   );
 }

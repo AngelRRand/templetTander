@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, Button, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore'
+import AppContext from '../context/app/AppContext';
 const Home = () => {
   const navigation = useNavigation()
 
@@ -17,9 +18,15 @@ const Home = () => {
     }
   }
 
+  const { userMail, getInfoUser } = useContext(AppContext)
   useEffect(() => {
     loadData()
+    getInfoUser()
   }, [])
+
+
+
+
 
   function renderItem({item}) {
     return (
