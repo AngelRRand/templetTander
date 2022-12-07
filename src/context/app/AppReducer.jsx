@@ -1,12 +1,12 @@
 import {
-    GET_USER
+    GET_URLZIP
 } from "../types";
 export default (state, action) => {
     switch (action.type) {
-        case GET_USER:
+        case GET_URLZIP:
             return {
                 ...state,
-                user: action.payload
+                fileUrl: action.payload
             }
         default:
             return state

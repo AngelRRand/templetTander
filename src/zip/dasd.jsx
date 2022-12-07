@@ -1,16 +1,20 @@
-import React, { useContext, useState } from 'react'
-import { View, Text, Button, Platform, PermissionsAndroid, } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import AppContext from '../context/app/AppContext';
+import React from 'react';
+
+// Import React native Components
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  PermissionsAndroid,
+} from 'react-native';
+
 import RNFetchBlob from 'rn-fetch-blob';
 
-const Chat = () => {
-  const navigation = useNavigation()
-  const { fileUrl } = useContext(AppContext)
-
-  
-  console.log(fileUrl)
-
+const Dashboard = () => {
+  const fileUrl = 'http://backend.plataformapuma.com:44444/syncdownzip.ashx?loginid=contacto@ludelaba.com.ar&zipname=aa704b3e-5901-4587-a10d-3a437965c05a_data.tar.gz';
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -32,7 +36,7 @@ const Chat = () => {
           Alert.alert('Error', 'Storage Permission Not Granted');
         }
       } catch (err) {
-        console.log("++++++++++++++++" + err);
+        console.log("++++" + err);
       }
     }
   };
@@ -44,6 +48,7 @@ const Chat = () => {
     let file_ext = getFileExtention(FILE_URL);
 
     file_ext = '.' + file_ext[0];
+
     const { config, fs } = RNFetchBlob;
     let RootDir = fs.dirs.PictureDir;
     let options = {
@@ -76,12 +81,39 @@ const Chat = () => {
   };
 
   return (
-    <View>
-      <Text>CHAT</Text>
-      <Button title='To go Chat' onPress={() => navigation.navigate('Home')} />
-      <Button title='DOWLOAD' onPress={() => checkPermission()} />
-    </View>
-  )
-}
+    <View style={styles.container}>
+      <View style={{ alignItems: 'center' }}>
+        <Text style={{ fontSize: 25, textAlign: 'center' }}>
+          React Native File Download Example
+        </Text>
 
-export default Chat
+      </View>
+      
+      <TouchableOpacity
+        style={styles.button}
+        onPress={checkPermission}>
+        <Text style={styles.text}>
+          Download FileEEEEE
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default Dashboard;
+
+const styles = StyleSheet.create({
+  text: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 5,
+  },
+  button: {
+    width: '80%',
+    padding: 10,
+    backgroundColor: 'blue',
+    margin: 10,
+  },
+
+});

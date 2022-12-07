@@ -1,1 +1,1 @@
-export const GET_USER = 'GET_USER';
+export const GET_URLZIP = 'GET_URLZIP';
