@@ -12,7 +12,7 @@ function unzipDownloadFile(target, cb) {
             return cb(path);
         })
         .catch((error) => {
-            console.error(error, 'OAODSOASODASODAOAOSDOASOADOADS')
+            console.error(error, 'asd')
         });
 }
 

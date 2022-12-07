@@ -3,21 +3,23 @@ import { View, Text, Button, Platform, PermissionsAndroid, } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import AppContext from '../context/app/AppContext';
 import RNFetchBlob from 'rn-fetch-blob';
-
+import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
 const Chat = () => {
   const navigation = useNavigation()
-  const { getUrlNames, urlsZips } = useContext(AppContext)
+  const { getUrlNames, urlsZips, userMail, zipsNames } = useContext(AppContext)
 
-  
+
   useEffect(() => {
-    getUrlNames()
+    getUrlNames(userMail, zipsNames)
   }, [])
-  
-  console.log(urlsZips)
+
+  console.log(urlsZips, 'DESDE CHAT')
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
-      downloadFile();
+      downloadFile(urlsZips.dataZip);
+      downloadFile(urlsZips.imagesZip);
+
     } else {
       try {
         const granted = await PermissionsAndroid.request(
@@ -29,7 +31,10 @@ const Chat = () => {
           }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          downloadFile();
+
+          //DESCARGA LOS ZIP
+          downloadFile(urlsZips.dataZip);
+          downloadFile(urlsZips.imagesZip);
           console.log('Storage Permission Granted.');
         } else {
           Alert.alert('Error', 'Storage Permission Not Granted');
@@ -40,35 +45,30 @@ const Chat = () => {
     }
   };
 
-  const downloadFile = () => {
+  const downloadFile = (fileUrl) => {
 
-    let date = new Date();
     let FILE_URL = fileUrl;
     let file_ext = getFileExtention(FILE_URL);
-
     file_ext = '.' + file_ext[0];
     const { config, fs } = RNFetchBlob;
     let RootDir = fs.dirs.PictureDir;
+
     let options = {
       fileCache: true,
       addAndroidDownloads: {
-        path:
-          RootDir +
-          '/file_' +
-          Math.floor(date.getTime() + date.getSeconds() / 2) +
-          file_ext,
+        path: RootDir + '/file_' + userMail + file_ext,
         description: 'downloading file...',
         notification: true,
-        // useDownloadManager works with Android only
         useDownloadManager: true,
       },
     };
     config(options)
+    
       .fetch('GET', FILE_URL)
       .then(res => {
         // Alert after successful downloading
-        console.log('res -> ', JSON.stringify(res));
-        alert('File Downloaded Successfully.');
+        //console.log('res -> ', JSON.stringify(res));
+        alert('HOLA :D');
       });
   };
 

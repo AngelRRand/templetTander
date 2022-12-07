@@ -18,58 +18,64 @@ const AppbaseState = ({ children }) => {
 
         //SYNC
         fileUrl: '',
-        zipsNames: {},
-        urlsZips:{}
+        zipsNames: '',
+        urlsZips: {}
     }
 
     const [state, dispatch] = useReducer(AppReducer, initialState)
 
 
 
-    const getMailUser = async () =>{
-        let respons = await axios.get('http://backend.plataformapuma.com:44444/authenticatev2.ashx?loginid=contacto@ludelaba.com.ar&password=ariel')
-        let userMail = respons.data.content.raw.Usuario.LoginId
-        dispatch({
-            type: GET_USER_EMAIL,
-            payload: userMail
-        })
-    }
-
-
-
-    const getZipUser = async() =>{
-
-        let respons = await axios.get('http://backend.plataformapuma.com:44444/authenticatev2.ashx?loginid=contacto@ludelaba.com.ar&password=ariel')
-        let userMail = respons.data.content.raw.Usuario.LoginId
-
-
-        let zips = await axios.get(`http://backend.plataformapuma.com:44444/synczipv2.ashx?loginid=${userMail}`)
-        console.log(userMail, 'FUNCOIONASDNMASD')
-        let dataZip = zips.data.content.raw.dataZip
-        let imagesZip = zips.data.content.raw.imagesZip
-
-        let zipsNames = {
-            dataZip: dataZip,
-            imagesZip: imagesZip
+    const getMailUser = async () => {
+        try {
+            let respons = await axios.get('http://backend.plataformapuma.com:44444/authenticatev2.ashx?loginid=contacto@ludelaba.com.ar&password=ariel')
+            let userMail = respons.data.content.raw.Usuario.LoginId
+            dispatch({
+                type: GET_USER_EMAIL,
+                payload: userMail
+            })
+        } catch (error) {
+            console.log(first)
         }
-        dispatch({
-            type: GET_ZIPS_NAMES,
-            payload: zipsNames
-        })
     }
 
 
 
-    const getUrlNames = async () => {
-        const urlsZips = {
-            dataZip: `http://backend.plataformapuma.com:44444/syncdownzip.ashx?loginid=${initialState.userMail}&zipname=${initialState.zipsNames.dataZip}`,
-            imagesZip: `http://backend.plataformapuma.com:44444/syncdownzip.ashx?loginid=${initialState.userMail}&zipname=${initialState.zipsNames.imagesZip}`
-        } 
-        dispatch({
-            type: GET_ZIP_URL,
-            payload: urlsZips
-        })
-      };
+    const getZipUser = async (userMail) => {
+        try {
+            let zips = await axios.get(`http://backend.plataformapuma.com:44444/synczipv2.ashx?loginid=${userMail}`)
+            let dataZip = await zips.data.content.raw.dataZip
+            let imagesZip = await zips.data.content.raw.imagesZip
+
+            let zipsNames = {
+                dataZip: dataZip,
+                imagesZip: imagesZip
+            }
+            dispatch({
+                type: GET_ZIPS_NAMES,
+                payload: zipsNames
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+
+    const getUrlNames = async (userMail, zipsNames) => {
+        try {
+            const urlsZips = {
+                dataZip: `http://backend.plataformapuma.com:44444/syncdownzip.ashx?loginid=${userMail}&zipname=${zipsNames.dataZip}`,
+                imagesZip: `http://backend.plataformapuma.com:44444/syncdownzip.ashx?loginid=${userMail}&zipname=${zipsNames.imagesZip}`
+            }
+            dispatch({
+                type: GET_ZIP_URL,
+                payload: urlsZips
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    };
 
 
 
@@ -89,8 +95,8 @@ const AppbaseState = ({ children }) => {
         <AppContext.Provider
             value={{
                 userMail: state.userMail,
-                zipsNames:state.zipsNames,
-                urlsZips:state.urlsZips,
+                zipsNames: state.zipsNames,
+                urlsZips: state.urlsZips,
                 getMailUser,
                 getZipUser,
                 getUrlNames
