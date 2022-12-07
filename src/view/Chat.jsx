@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Text, Button, Platform, PermissionsAndroid, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AppContext from '../context/app/AppContext';
@@ -6,11 +6,14 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 const Chat = () => {
   const navigation = useNavigation()
-  const { fileUrl } = useContext(AppContext)
+  const { getUrlNames, urlsZips } = useContext(AppContext)
 
   
-  console.log(fileUrl)
-
+  useEffect(() => {
+    getUrlNames()
+  }, [])
+  
+  console.log(urlsZips)
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -32,7 +35,7 @@ const Chat = () => {
           Alert.alert('Error', 'Storage Permission Not Granted');
         }
       } catch (err) {
-        console.log("++++++++++++++++" + err);
+        console.log("+++" + err);
       }
     }
   };

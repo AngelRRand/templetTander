@@ -6,8 +6,30 @@ import AppContext from '../context/app/AppContext';
 const Home = () => {
   const navigation = useNavigation()
 
-  const [data, setData] = useState()
 
+  
+
+  const { getMailUser, getZipUser, userMail, zipsNames } = useContext(AppContext)
+  useEffect(() => {
+    getMailUser()
+  }, [])
+
+  useEffect(() => {
+    if(userMail === ''){
+      return
+    } else{
+      getZipUser()
+    }
+  }, [userMail])
+
+
+console.log(userMail)
+console.log(zipsNames)
+
+
+
+
+/*
   async function loadData() {
     try {
       const users = await firestore().collection('Usuarios').get()
@@ -16,14 +38,6 @@ const Home = () => {
       console.log(error)
     }
   }
-
-  const { userMail, asyncUser } = useContext(AppContext)
-  useEffect(() => {
-    loadData()
-    asyncUser()
-  }, [])
-
-
 
 
 
@@ -35,16 +49,16 @@ const Home = () => {
       </View>
     )
   }
+  */
 
   return (
     <View>
       <Text>HOME</Text>
+      <Text>{userMail}</Text>
+
+
       <Button title='To go Chat' onPress={() => navigation.navigate('Chat')} />
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        />
+      
 
     </View>
   )
