@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import AppContext from '../context/app/AppContext';
 import RNFetchBlob from 'rn-fetch-blob';
 import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Chat = () => {
   const navigation = useNavigation()
   const { getUrlNames, urlsZips, userMail, zipsNames } = useContext(AppContext)
@@ -13,7 +14,7 @@ const Chat = () => {
     getUrlNames(userMail, zipsNames)
   }, [])
 
-  console.log(urlsZips, 'DESDE CHAT')
+  //console.log(urlsZips, 'DESDE CHAT')
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -63,11 +64,15 @@ const Chat = () => {
       },
     };
     config(options)
-    
+
       .fetch('GET', FILE_URL)
       .then(res => {
-        // Alert after successful downloading
-        //console.log('res -> ', JSON.stringify(res));
+        console.log(res, 'RES')
+
+        unzipDownloadFile(options.addAndroidDownloads.path, (jsonFilePath) => {
+          storeJSONtoAsyncStorage(jsonFilePath);
+        });
+
         alert('HOLA :D');
       });
   };
@@ -78,11 +83,42 @@ const Chat = () => {
       /[^.]+$/.exec(fileUrl) : undefined;
   };
 
+  function unzipDownloadFile(target, cb) {
+    const targetPath = target;
+    const sourcePath = `${target}.json`;
+    const charset = 'UTF-8';
+
+    unzip(sourcePath, targetPath, charset)
+      .then((path) => {
+        console.log(`unzip completed at ${path}`)
+        return cb(path);
+      })
+      .catch((error) => {
+        console.error(error, 'asd')
+      });
+  }
+
+  function storeJSONtoAsyncStorage(path) {
+    RNFetchBlob.fs.readFile(path, 'utf-8')
+      .then((data) => {
+        AsyncStorage.setItem('myJSON', data);
+      });
+  }
+
   return (
     <View>
-      <Text>CHAT</Text>
-      <Button title='To go Chat' onPress={() => navigation.navigate('Home')} />
-      <Button title='DOWLOAD' onPress={() => checkPermission()} />
+      {
+        urlsZips === '' ? (
+          <Text>Cargando...</Text>
+        ) : (
+          <>
+            <Text>CHAT</Text>
+            <Button title='To go Chat' onPress={() => navigation.navigate('Home')} />
+            <Button title='DOWLOAD' onPress={() => checkPermission()} />
+          </>
+        )
+      }
+
     </View>
   )
 }

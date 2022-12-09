@@ -19,7 +19,7 @@ const AppbaseState = ({ children }) => {
         //SYNC
         fileUrl: '',
         zipsNames: '',
-        urlsZips: {}
+        urlsZips: ''
     }
 
     const [state, dispatch] = useReducer(AppReducer, initialState)
@@ -35,7 +35,7 @@ const AppbaseState = ({ children }) => {
                 payload: userMail
             })
         } catch (error) {
-            console.log(first)
+            console.log(error)
         }
     }
 
