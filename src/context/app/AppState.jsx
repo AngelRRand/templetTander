@@ -86,14 +86,17 @@ const AppbaseState = ({ children }) => {
     const getJsonUser = async (userMail) => {
         try {
             let respons = await axios.get('http://backend.plataformapuma.com:44444/authenticatev2.ashx?loginid=contacto@ludelaba.com.ar&password=ariel')
-            let zips = await axios.get(`http://backend.plataformapuma.com:44444/syncjsonv2.ashx?loginid=${userMail}`)
-            let dataZip = await zips.data
+            //console.log(respons)
+            let zips = await axios.get(`http://backend.plataformapuma.com:44444/syncjsonv2.ashx?loginid=contacto@ludelaba.com.ar`)
+            console.log(zips.data.content.Productores, 'AAAAAAAAAAAAA')
+
+            let dataZip = await zips.data.content.Productores
             Alert.alert(
                 "Se extrajo la data",
                 "Ya esta lista para utilizar",
                 [
                     {
-                        text: "Cancel",
+                        text: "Ok",
                         style: "cancel",
                     },
                 ],

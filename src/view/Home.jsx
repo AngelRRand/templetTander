@@ -27,7 +27,7 @@ const Home = () => {
   }, [userMail, zipsNames])
 
 
-  //console.log(userMail)
+  console.log(userMail)
   //console.log(zipsNames, 'VEAMOSS')
 
 

@@ -8,7 +8,7 @@ const GetJson = () => {
 
 
     return (
-        <Button title='GETJSON' onPress={() => getJsonUser(userMail)} />
+        <Button title='GETJSON' onPress={() => getJsonUser()} />
     )
 }
 
