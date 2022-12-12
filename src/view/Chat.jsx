@@ -5,6 +5,7 @@ import AppContext from '../context/app/AppContext';
 import RNFetchBlob from 'rn-fetch-blob';
 import {  unzip } from 'react-native-zip-archive'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GetJson from './GetJson';
 const Chat = () => {
   const navigation = useNavigation()
   const { getUrlNames, urlsZips, userMail, zipsNames } = useContext(AppContext)
@@ -115,6 +116,7 @@ const Chat = () => {
             <Text>CHAT</Text>
             <Button title='To go Chat' onPress={() => navigation.navigate('Home')} />
             <Button title='DOWLOAD' onPress={() => checkPermission()} />
+            <GetJson></GetJson>
           </>
         )
       }

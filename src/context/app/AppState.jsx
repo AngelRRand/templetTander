@@ -4,7 +4,7 @@ import AppContext from "./AppContext";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
-import { GET_USER_EMAIL, GET_ZIPS_NAMES, GET_ZIP_URL } from "../types";
+import { GET_USER_EMAIL, GET_ZIPS_NAMES, GET_ZIP_URL, GET_JSON } from "../types";
 import { Alert } from "react-native";
 
 
@@ -24,7 +24,7 @@ const AppbaseState = ({ children }) => {
 
 
         //JSON
-        dataUser:[]
+        dataUser: []
     }
 
     const [state, dispatch] = useReducer(AppReducer, initialState)
@@ -85,11 +85,22 @@ const AppbaseState = ({ children }) => {
 
     const getJsonUser = async (userMail) => {
         try {
+            let respons = await axios.get('http://backend.plataformapuma.com:44444/authenticatev2.ashx?loginid=contacto@ludelaba.com.ar&password=ariel')
             let zips = await axios.get(`http://backend.plataformapuma.com:44444/syncjsonv2.ashx?loginid=${userMail}`)
-            Alert.alert()
+            let dataZip = await zips.data
+            Alert.alert(
+                "Se extrajo la data",
+                "Ya esta lista para utilizar",
+                [
+                    {
+                        text: "Cancel",
+                        style: "cancel",
+                    },
+                ],
+            )
             dispatch({
                 type: GET_JSON,
-                payload: zips
+                payload: dataZip
             })
         } catch (error) {
             console.log(error, 'AUN NO LLEGA EL MAIL')
@@ -104,7 +115,7 @@ const AppbaseState = ({ children }) => {
                 userMail: state.userMail,
                 zipsNames: state.zipsNames,
                 urlsZips: state.urlsZips,
-                dataUser:state.dataUser,
+                dataUser: state.dataUser,
                 getMailUser,
                 getZipUser,
                 getUrlNames,
