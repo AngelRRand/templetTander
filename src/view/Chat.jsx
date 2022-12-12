@@ -3,7 +3,7 @@ import { View, Text, Button, Platform, PermissionsAndroid, } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import AppContext from '../context/app/AppContext';
 import RNFetchBlob from 'rn-fetch-blob';
-import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
+import {  unzip } from 'react-native-zip-archive'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Chat = () => {
   const navigation = useNavigation()
@@ -85,7 +85,7 @@ const Chat = () => {
 
   function unzipDownloadFile(target, cb) {
     const targetPath = target;
-    const sourcePath = `${target}.json`;
+    const sourcePath = `${target}`;
     const charset = 'UTF-8';
 
     unzip(sourcePath, targetPath, charset)
