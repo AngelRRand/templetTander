@@ -87,7 +87,7 @@ const Chat = () => {
     const targetPath = target;
     const sourcePath = `${target}`;
     const charset = 'UTF-8';
-
+    console.log(targetPath, 'VAMOS ESTE ES EL TARGET')
     unzip(sourcePath, targetPath, charset)
       .then((path) => {
         console.log(`unzip completed at ${path}`)

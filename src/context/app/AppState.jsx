@@ -5,6 +5,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { zip, unzip, unzipAssets, subscribe } from 'react-native-zip-archive'
 import { GET_USER_EMAIL, GET_ZIPS_NAMES, GET_ZIP_URL } from "../types";
+import { Alert } from "react-native";
 
 
 const AppbaseState = ({ children }) => {
@@ -19,7 +20,11 @@ const AppbaseState = ({ children }) => {
         //SYNC
         fileUrl: '',
         zipsNames: '',
-        urlsZips: ''
+        urlsZips: '',
+
+
+        //JSON
+        dataUser:[]
     }
 
     const [state, dispatch] = useReducer(AppReducer, initialState)
@@ -44,8 +49,10 @@ const AppbaseState = ({ children }) => {
     const getZipUser = async (userMail) => {
         try {
             let zips = await axios.get(`http://backend.plataformapuma.com:44444/synczipv2.ashx?loginid=${userMail}`)
+
             let dataZip = await zips.data.content.raw.dataZip
             let imagesZip = await zips.data.content.raw.imagesZip
+
 
             let zipsNames = {
                 dataZip: dataZip,
@@ -56,10 +63,9 @@ const AppbaseState = ({ children }) => {
                 payload: zipsNames
             })
         } catch (error) {
-            console.log(error)
+            console.log(error, 'AUN NO LLEGA EL MAIL')
         }
     }
-
 
 
     const getUrlNames = async (userMail, zipsNames) => {
@@ -77,19 +83,20 @@ const AppbaseState = ({ children }) => {
         }
     };
 
-
-
-
-    const ViewData = () => {
-        AsyncStorage.getItem('myJSON', (err, json) => {
-            if (err) {
-                console.log(err);
-            } else {
-                const myJSON = JSON.parse(json);
-                console.log(myJSON)
-            }
-        })
+    const getJsonUser = async (userMail) => {
+        try {
+            let zips = await axios.get(`http://backend.plataformapuma.com:44444/syncjsonv2.ashx?loginid=${userMail}`)
+            Alert.alert()
+            dispatch({
+                type: GET_JSON,
+                payload: zips
+            })
+        } catch (error) {
+            console.log(error, 'AUN NO LLEGA EL MAIL')
+        }
     }
+
+
 
     return (
         <AppContext.Provider
@@ -97,9 +104,11 @@ const AppbaseState = ({ children }) => {
                 userMail: state.userMail,
                 zipsNames: state.zipsNames,
                 urlsZips: state.urlsZips,
+                dataUser:state.dataUser,
                 getMailUser,
                 getZipUser,
-                getUrlNames
+                getUrlNames,
+                getJsonUser
             }}
         >
             {children}

@@ -22,3 +22,14 @@ function storeJSONtoAsyncStorage(path) {
             AsyncStorage.setItem('myJSON', data);
         });
 }
+
+const ViewData = () => {
+    AsyncStorage.getItem('myJSON', (err, json) => {
+        if (err) {
+            console.log(err);
+        } else {
+            const myJSON = JSON.parse(json);
+            console.log(myJSON)
+        }
+    })
+}

@@ -2,6 +2,7 @@ import {
     GET_USER_EMAIL,
     GET_ZIPS_NAMES,
     GET_ZIP_URL,
+    GET_JSON
 } from "../types";
 export default (state, action) => {
     switch (action.type) {
@@ -20,6 +21,11 @@ export default (state, action) => {
             return {
                 ...state,
                 urlsZips: action.payload
+            }
+        case GET_JSON:
+            return {
+                ...state,
+                dataUser: action.payload
             }
 
         default:
