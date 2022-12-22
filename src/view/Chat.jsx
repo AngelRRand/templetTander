@@ -113,7 +113,7 @@ const Chat = () => {
           <Text>Cargando...</Text>
         ) : (
           <>
-            <Text>CHAT</Text>
+            <Text>CHATT</Text>
             <Button title='To go Chat' onPress={() => navigation.navigate('Home')} />
             <Button title='DOWLOAD' onPress={() => checkPermission()} />
             <GetJson></GetJson>
